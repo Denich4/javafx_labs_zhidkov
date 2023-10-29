@@ -3,6 +3,7 @@ package com.example.lab3javafx;
 
 import java.io.IOException;
 
+import com.example.lab3javafx.controllers.OrderEditDialogController;
 import com.example.lab3javafx.controllers.OrderOverviewController;
 import com.example.lab3javafx.model.Order;
 import javafx.application.Application;
@@ -12,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
@@ -82,6 +84,34 @@ public class MainApp extends Application {
         }
     }
 
+    public boolean showOrderEditDialog(Order order) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/OrderEditDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Создаём диалоговое окно Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Order");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Передаём адресата в контроллер.
+            OrderEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setOrder(order);
+
+            // Отображаем диалоговое окно и ждём, пока пользователь его не закроет
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     public Stage getPrimaryStage() {
         return primaryStage;
     }

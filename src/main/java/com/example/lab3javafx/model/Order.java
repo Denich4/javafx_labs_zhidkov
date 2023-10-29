@@ -10,9 +10,9 @@ import java.time.LocalDate;
 public class Order {
     private final StringProperty orderType;
     private final StringProperty orderVeriety;
-    private final StringProperty currencyShort;
     private final StringProperty currencyFull;
     private final StringProperty tiker;
+    private final StringProperty count;
     private final StringProperty number;
     private final ObjectProperty<LocalDate> data;
     private final ObjectProperty<LocalDate> duration;
@@ -28,8 +28,8 @@ public class Order {
         // Какие-то фиктивные начальные данные для удобства тестирования.
         this.orderType = new SimpleStringProperty("тип");
         this.orderVeriety = new SimpleStringProperty("вид");
-        this.currencyShort = new SimpleStringProperty("валюта кратко");
         this.currencyFull = new SimpleStringProperty("валюта полное");
+        this.count = new SimpleStringProperty("0");
 
         this.data = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
         this.duration = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 3, 21));
@@ -59,18 +59,6 @@ public class Order {
         this.orderVeriety.set(orderVeriety);
     }
 
-    public String getCurrencyShort() {
-        return currencyShort.get();
-    }
-
-    public StringProperty currencyShortProperty() {
-        return currencyShort;
-    }
-
-    public void setCurrencyShort(String currencyShort) {
-        this.currencyShort.set(currencyShort);
-    }
-
     public String getCurrencyFull() {
         return currencyFull.get();
     }
@@ -93,6 +81,17 @@ public class Order {
 
     public void setTiker(String tiker) {
         this.tiker.set(tiker);
+    }
+    public String getCount() {
+        return count.get();
+    }
+
+    public StringProperty countProperty() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count.set(count);
     }
 
     public String getNumber() {
